@@ -1,0 +1,12 @@
+.cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.cards-container > * {
+    width: 30%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
