@@ -3,23 +3,25 @@ import { Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-// import  { useParams } from "react-router-dom";
-
-
-
-{/* <ProductCard id={5} name={"tak"} year={"2007"} color={"yellow"}/> */}
+import  { useParams, useSearchParams } from "react-router-dom";
 
 export const ProductsContainer = () => {
     const [useCardsList, setCardsList] = useState([]);
-    // let { yes } = useParams();
+    let { pageNumber } = useParams(1);
+    let { urlAttributes } = useSearchParams('id');
+    console.log(urlAttributes);
 
-    const fetchData = async(page) => {
+    const fetchData = async (page) => {
         return new Promise(async (resolve, reject) => {
             axios.get(`https://reqres.in/api/products?page=`+page)
             .then(res => {
-                // const persons = res.data;
-                // this.setState({ persons });
-    
+                setCardsList(
+                    res.data.data.map((item)=>{
+                        return ( 
+                            <ProductCard id={item.id} name={item.name} year={item.year} color={item.color} key={item.id}/> 
+                        );
+                    })
+                )
                 resolve();
             }).catch(error => {
                 reject(error);
@@ -36,17 +38,19 @@ export const ProductsContainer = () => {
                         Name: {name}
                         <br/>
                         year: {year}
-                        <br/>
                     </Card.Text>
                 </Card.Body>
             </Card>
         )
     }
+
+    useEffect(()=>{
+        fetchData(pageNumber);
+    },[pageNumber])
     
     return (
-        <div class="cards-container">
+        <div className='cards-container'>
             {useCardsList}
-            {/* {yes} */}
         </div>
     );
 }

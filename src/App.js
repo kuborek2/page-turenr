@@ -1,17 +1,46 @@
+import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 import './App.css';
 import { SearchBar } from './components/search-bar';
 import { ProductsContainer } from './components/products-container';
 import { Pageing } from './components/pageing';
 
-function App() {
+// const DynamicComponenets = () => {
+//   return(
+//     <div>
+//       <SearchBar/>
+//       <div class="separator"/>
+//       <ProductsContainer/>
+//     </div>
+//   )
+// }
+
+const App = () => {
   return (
-    <div class="components-docking-container">
-      <SearchBar/>
-      <div class="separator"/>
-      <ProductsContainer/>
-      <div class="separator"/>
-      <Pageing/>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path='/' element={
+          <div className='components-docking-container'>
+          <SearchBar/>
+          <div className='separator'/>
+          <ProductsContainer/>
+          <div className='separator'/>
+          <Pageing/>
+        </div>
+        }/>
+        <Route exact path='/:pageNumber' element={
+          <div className='components-docking-container'>
+            <SearchBar/>
+            <div className='separator'/>
+            <ProductsContainer/>
+            <div className='separator'/>
+            <Pageing/>
+          </div>
+        }/>
+      </Routes>
+
+    </Router>
   );
 }
 
