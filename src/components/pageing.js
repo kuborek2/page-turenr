@@ -11,14 +11,14 @@ export const Pageing = () => {
     const navigate = useNavigate();
 
     const onPageBackChange = () => {
-        if( pageNumber === undefined || pageNumber === NaN || pageNumber === null || parseInt(pageNumber) === 1 )
+        if( pageNumber === undefined || isNaN(pageNumber) || pageNumber === null || parseInt(pageNumber) === 1 )
             navigate("/"+1);
         else
             navigate("/"+(parseInt(pageNumber)-1));
     }
 
     const onPageForwardChange = () => {
-        if( pageNumber === undefined || pageNumber === NaN || pageNumber === null )
+        if( pageNumber === undefined || isNaN(pageNumber) || pageNumber === null )
             navigate("/"+2);
         else
             navigate("/"+(parseInt(pageNumber)+1));

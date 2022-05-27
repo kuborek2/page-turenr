@@ -9,11 +9,11 @@ export const SearchBar = () => {
     const onInputChange = () => {
         let value = document.getElementById("item-id").value;
         console.log(value)
-        if( (value === undefined || value === NaN || value === null || value === "") && ( pageNumber === undefined || pageNumber === NaN || pageNumber === null || parseInt(pageNumber) === 1))
+        if( (value === undefined || isNaN(value) || value === null || value === "") && ( pageNumber === undefined || isNaN(pageNumber) || pageNumber === null || parseInt(pageNumber) === 1))
             navigate("/"+1);
-        else if ( value === undefined || value === NaN || value === null || value === "" )
+        else if ( value === undefined || isNaN(value) || value === null || value === "" )
             navigate("/"+pageNumber);
-        else if( pageNumber === undefined || pageNumber === NaN || pageNumber === null || parseInt(pageNumber) === 1 )
+        else if( pageNumber === undefined || isNaN(pageNumber) || pageNumber === null || parseInt(pageNumber) === 1 )
             navigate("/"+1+"?id="+value);
         else
             navigate("/"+pageNumber+"?id="+value);
