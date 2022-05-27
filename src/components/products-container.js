@@ -3,25 +3,36 @@ import { Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import  { useParams, useSearchParams } from "react-router-dom";
+import  { useParams, useSearchParams, matchPath } from "react-router-dom";
 
 export const ProductsContainer = () => {
     const [useCardsList, setCardsList] = useState([]);
     let { pageNumber } = useParams(1);
-    let { urlAttributes } = useSearchParams('id');
-    console.log(urlAttributes);
+    let [searchParams, setSearchParams] = useSearchParams();
+    // let [idParam, setIdParam] = useSearchParams(searchParams.get("id"));
 
-    const fetchData = async (page) => {
+    const fetchData = async (page, idParam) => {
         return new Promise(async (resolve, reject) => {
             axios.get(`https://reqres.in/api/products?page=`+page)
             .then(res => {
-                setCardsList(
-                    res.data.data.map((item)=>{
-                        return ( 
-                            <ProductCard id={item.id} name={item.name} year={item.year} color={item.color} key={item.id}/> 
-                        );
-                    })
-                )
+                if(idParam === null || idParam === undefined || idParam === NaN)
+                    setCardsList(
+                        res.data.data.map((item)=>{
+                            return ( 
+                                <ProductCard id={item.id} name={item.name} year={item.year} color={item.color} key={item.id}/> 
+                            );
+                        })
+                    )
+                else
+                    setCardsList(
+                        res.data.data.map((item)=>{
+                            if( parseInt(item.id) == parseInt(idParam) )
+                                return ( 
+                                    <ProductCard id={item.id} name={item.name} year={item.year} color={item.color} key={item.id}/> 
+                                );
+                        })
+                    )
+
                 resolve();
             }).catch(error => {
                 reject(error);
@@ -45,8 +56,10 @@ export const ProductsContainer = () => {
     }
 
     useEffect(()=>{
-        fetchData(pageNumber);
-    },[pageNumber])
+        let idParam = searchParams.get("id");
+        fetchData(pageNumber, idParam);
+    },[pageNumber, searchParams])
+
     
     return (
         <div className='cards-container'>
