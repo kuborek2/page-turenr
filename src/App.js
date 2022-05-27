@@ -6,16 +6,6 @@ import { SearchBar } from './components/search-bar';
 import { ProductsContainer } from './components/products-container';
 import { Pageing } from './components/pageing';
 
-// const DynamicComponenets = () => {
-//   return(
-//     <div>
-//       <SearchBar/>
-//       <div class="separator"/>
-//       <ProductsContainer/>
-//     </div>
-//   )
-// }
-
 const App = () => {
   return (
     <Router>
