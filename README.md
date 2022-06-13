@@ -14,4 +14,5 @@ TO DO:
 example:
 navigate("/"+(parseInt(pageNumber)-1));
 ```
+> Use Shorthand condition in place of big ifs that check null, empty-string, undefined
 
